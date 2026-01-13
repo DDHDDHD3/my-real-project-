@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx ng serve",
+    "dev": "npx ng serve --host 0.0.0.0",
     "build": "npx ng build",
     "preview": "npx ng serve --configuration=production",
     "serve": "node server.mjs"

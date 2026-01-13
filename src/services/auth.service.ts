@@ -17,7 +17,7 @@ export class AuthService {
     sessionTimeLeft = signal<number>(0); // In seconds
     private timerHandle: any;
 
-    private apiUrl = 'http://localhost:3000/api/auth';
+    private apiUrl = 'http://192.168.18.29:3000/api/auth';
 
     constructor() {
         if (this.isAuthenticated()) {
