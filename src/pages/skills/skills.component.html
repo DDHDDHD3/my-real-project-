@@ -1,0 +1,58 @@
+<div class="max-w-6xl mx-auto py-12 px-4 space-y-16 animate-slide-up relative overflow-hidden">
+  <!-- Decorative Blobs -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+    <div
+      class="absolute top-[20%] right-[-10%] w-[30%] h-[30%] bg-indigo-400/10 dark:bg-indigo-600/5 rounded-full blur-[100px] animate-blob">
+    </div>
+    <div
+      class="absolute bottom-[10%] left-[-10%] w-[30%] h-[30%] bg-blue-400/10 dark:bg-blue-600/5 rounded-full blur-[100px] animate-blob stagger-2">
+    </div>
+  </div>
+
+  <div class="text-center space-y-4 relative z-10">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white animate-slide-up">
+      Expertise & <span class="gradient-text animate-pulse">Competencies</span>
+    </h1>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto animate-fade-in stagger-1">
+      A comprehensive overview of my technical foundation and professional strengths developed through academic
+      excellence and practical interest.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pt-8 relative z-10">
+    @for (category of dataService.skillCategories(); track category.title; let i = $index) {
+    <div class="space-y-6 animate-slide-up" [style.animation-delay]="(i * 150) + 'ms'">
+      <div class="flex items-center gap-4 group">
+        <div class="w-1.5 h-8 bg-blue-600 rounded-full group-hover:h-12 transition-all duration-300"></div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">{{
+            category.title }}</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">{{ category.description }}</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        @for (skill of category.skills; track skill.name; let j = $index) {
+        <div class="glass hover-card p-6 rounded-3xl group transition-all duration-300 animate-scale-in"
+          [style.animation-delay]="(i * 150 + j * 100) + 'ms'">
+          <div class="flex items-center gap-5">
+            <div
+              class="p-3.5 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-500 group-hover:bg-blue-600 group-hover:border-blue-500 group-hover:scale-110 group-hover:rotate-3 animate-float-slow">
+              <svg class="h-6 w-6 text-blue-600 dark:text-blue-400 transition-colors group-hover:text-white" fill="none"
+                stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="skill.icon"></path>
+              </svg>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                {{ skill.name }}</h3>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>

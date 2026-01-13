@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-g">
+  <title>Abdullahi Muse Isse - Portfolio</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+            display: ['Outfit', 'serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <script>
+    // Initialize theme from localStorage to prevent FOUC (Flash of Unstyled Content)
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+  <link rel="stylesheet" href="/index.css">
+  <style>
+    /* Simple page transition */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page-enter-active {
+      animation: fadeIn 0.5s ease-out forwards;
+    }
+
+    /* Print Styles for PDF - Optimized Scaling */
+    @media print {
+      @page {
+        size: A4;
+        margin: 10mm;
+        /* Standard paper margins */
+      }
+
+      body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background: white !important;
+        font-size: 10pt;
+        /* Smaller base font for print */
+        line-height: normal;
+      }
+
+      .no-print,
+      nav,
+      footer,
+      app-navbar,
+      button {
+        display: none !important;
+      }
+
+      .animate-slide-up,
+      .animate-fade-in {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        animation: none !important;
+        transform: none !important;
+      }
+
+      .max-w-5xl,
+      .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+
+      .glass {
+        background: white !important;
+        backdrop-filter: none !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 0 !important;
+      }
+
+      /* Adjust text sizes for print density */
+      h1 {
+        font-size: 24pt !important;
+      }
+
+      h2 {
+        font-size: 16pt !important;
+      }
+
+      h3 {
+        font-size: 14pt !important;
+      }
+
+      p,
+      li,
+      span {
+        font-size: 10pt !important;
+      }
+
+      .print-only {
+        display: block !important;
+      }
+
+      .text-white {
+        color: white !important;
+      }
+
+      .text-gray-900 {
+        color: #000 !important;
+      }
+
+      app-root,
+      app-about {
+        width: 100% !important;
+      }
+    }
+
+    .print-only {
+      display: none;
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "rxjs": "https://esm.sh/rxjs@^7.8.2?conditions=es2015",
+    "rxjs/operators": "https://esm.sh/rxjs@^7.8.2/operators?conditions=es2015",
+    "rxjs/ajax": "https://esm.sh/rxjs@^7.8.2/ajax?conditions=es2015",
+    "rxjs/webSocket": "https://esm.sh/rxjs@^7.8.2/webSocket?conditions=es2015",
+    "rxjs/testing": "https://esm.sh/rxjs@^7.8.2/testing?conditions=es2015",
+    "rxjs/fetch": "https://esm.sh/rxjs@^7.8.2/fetch?conditions=es2015",
+    "@angular/compiler": "https://esm.sh/@angular/compiler@^21.0.7?external=rxjs",
+    "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^21.0.7?external=rxjs",
+    "@angular/router": "https://esm.sh/@angular/router@^21.0.7?external=rxjs",
+    "@angular/core": "https://esm.sh/@angular/core@^21.0.7?external=rxjs",
+    "@angular/common": "https://esm.sh/@angular/common@^21.0.7?external=rxjs",
+    "@google/genai": "https://esm.sh/@google/genai"
+  }
+}
+</script>
+</head>
+
+<body
+  class="text-gray-900 dark:text-gray-100 font-sans antialiased selection:bg-blue-100 dark:selection:bg-blue-900 transition-colors duration-500">
+  <app-root></app-root>
+</body>
+
+</html>
