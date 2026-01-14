@@ -3,10 +3,11 @@ const { Pool } = require('pg');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SECRET_KEY = 'YOUR_SECRET_KEY'; // In production, use environment variable
+const SECRET_KEY = process.env.SECRET_KEY || 'YOUR_SECRET_KEY'; // In production, use environment variable
 
 // Middleware
 app.use(cors());
@@ -371,6 +372,14 @@ app.delete('/api/messages/:id', authenticateToken, async (req, res) => {
 
 app.get('/health', (req, res) => {
     res.send({ status: 'UP', timestamp: new Date() });
+});
+
+// Serve static files from the built Angular app
+app.use(express.static(path.join(__dirname, '../dist')));
+
+// Catch all handler: send back index.html for client-side routing
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 // app.listen(PORT, '0.0.0.0', () => {
