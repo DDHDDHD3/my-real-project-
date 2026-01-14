@@ -27,7 +27,11 @@ const connectWithRetry = () => {
         } else {
             console.log('Successfully connected to PostgreSQL database!');
             release();
-            initializeDatabase();
+            initializeDatabase().then(() => {
+                app.listen(PORT, '0.0.0.0', () => {
+                    console.log(`Server running on port ${PORT}`);
+                });
+            }).catch(err => console.error('Error initializing database:', err));
         }
     });
 };
@@ -369,6 +373,6 @@ app.get('/health', (req, res) => {
     res.send({ status: 'UP', timestamp: new Date() });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, '0.0.0.0', () => {
+//     console.log(`Server running on port ${PORT}`);
+// });
