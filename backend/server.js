@@ -374,14 +374,6 @@ app.get('/health', (req, res) => {
     res.send({ status: 'UP', timestamp: new Date() });
 });
 
-// Serve static files from the built Angular app
-app.use(express.static(path.join(__dirname, '../dist')));
-
-// Catch all handler: send back index.html for client-side routing
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
-
 // app.listen(PORT, '0.0.0.0', () => {
 //     console.log(`Server running on port ${PORT}`);
 // });
