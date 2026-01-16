@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://YOUR_BACKEND_URL/api/auth',
+    apiUrl: 'https://thisexs-d5l5s1vgi27c73avoac0.onrender.com/api/auth',
     apiKey: ''
 };
