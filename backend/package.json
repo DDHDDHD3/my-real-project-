@@ -4,7 +4,6 @@
     "description": "Node.js backend for Portfolio",
     "main": "server.js",
     "scripts": {
-        "prestart": "cd .. && npx ng build --configuration production",
         "start": "node server.js",
         "dev": "nodemon server.js"
     },

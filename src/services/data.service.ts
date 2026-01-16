@@ -38,7 +38,7 @@ export interface Message {
 })
 export class DataService {
     private http = inject(HttpClient);
-    private apiUrl = 'http://backend:3000/api';
+    private apiUrl = 'http://localhost:3000/api';
 
     // General Info
     profile = signal({
