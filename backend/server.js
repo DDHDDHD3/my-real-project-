@@ -10,7 +10,10 @@ const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.SECRET_KEY || 'YOUR_SECRET_KEY'; // In production, use environment variable
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: '*', // Allow all origins (Vercel domains vary)
+    credentials: true
+}));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
