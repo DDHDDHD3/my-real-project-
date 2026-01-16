@@ -1,6 +1,6 @@
-
 import { Injectable } from '@angular/core';
 import { GoogleGenAI, GenerateContentResponse } from '@google/genai';
+import { environment } from '../environments/environment';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -11,8 +11,8 @@ export class GeminiService {
   private ai!: GoogleGenAI;
 
   constructor() {
-    if (process.env.API_KEY) {
-      this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    if (environment.apiKey) {
+      this.ai = new GoogleGenAI({ apiKey: environment.apiKey });
     } else {
       console.error('API_KEY environment variable is not set.');
     }
@@ -82,7 +82,7 @@ export class GeminiService {
       throw new Error('Video generation failed to produce a download link.');
     }
 
-    const apiKey = process.env['API_KEY'];
+    const apiKey = environment.apiKey;
     if (!apiKey) {
       throw new Error('API_KEY is not configured.');
     }

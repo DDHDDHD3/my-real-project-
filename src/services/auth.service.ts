@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap, map, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
     sessionTimeLeft = signal<number>(0); // In seconds
     private timerHandle: any;
 
-    private apiUrl = `${window.location.protocol}//${window.location.hostname}:3000/api/auth`;
+    private apiUrl = environment.apiUrl;
 
     constructor() {
         if (this.isAuthenticated()) {
