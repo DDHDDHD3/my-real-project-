@@ -217,10 +217,11 @@ app.post('/api/auth/login', async (req, res) => {
 
         console.log(`Login success: ${username}`);
         const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '10m' });
-        res.json({ token, username: user.username });
+        console.log(`Generated token for ${username}`);
+        res.status(200).json({ token, username: user.username });
     } catch (err) {
-        console.error('Login error:', err);
-        res.status(500).json({ message: 'Server error' });
+        console.error('Login error in server:', err);
+        res.status(500).json({ message: 'Server error', details: err.message });
     }
 });
 // Profile

@@ -1,0 +1,50 @@
+Database initialized successfully.
+Server running on port 3000
+2026-01-17T11:55:13.333Z - GET /
+2026-01-17T11:55:13.590Z - GET /chunk-XIR3SZ2P.js
+2026-01-17T11:55:13.613Z - GET /chunk-VHNUAS77.js
+2026-01-17T11:55:13.616Z - GET /main-EGCET6GO.js
+2026-01-17T11:55:15.025Z - GET /styles-VIMQ3S2Y.css
+2026-01-17T11:55:15.354Z - GET /api/profile
+2026-01-17T11:55:15.357Z - GET /api/projects
+2026-01-17T11:55:15.362Z - GET /api/skills
+2026-01-17T11:55:15.443Z - GET /assets/images/profile.png
+2026-01-17T12:07:18.114Z - GET /api/skills
+2026-01-17T12:07:18.120Z - GET /api/profile
+2026-01-17T12:07:18.126Z - GET /api/projects
+2026-01-17T12:10:48.929Z - GET /
+2026-01-17T12:10:49.156Z - GET /chunk-VHNUAS77.js
+2026-01-17T12:10:49.161Z - GET /main-EGCET6GO.js
+2026-01-17T12:10:49.175Z - GET /chunk-XIR3SZ2P.js
+2026-01-17T12:10:50.415Z - GET /styles-VIMQ3S2Y.css
+2026-01-17T12:10:50.787Z - GET /api/profile
+2026-01-17T12:10:50.790Z - GET /api/projects
+2026-01-17T12:10:50.793Z - GET /api/skills
+2026-01-17T12:10:50.872Z - GET /assets/images/profile.png
+2026-01-17T12:38:31.132Z - GET /
+2026-01-17T12:38:31.357Z - GET /chunk-ZX3GGCCM.js
+2026-01-17T12:38:31.360Z - GET /chunk-4CXR2B4R.js
+2026-01-17T12:38:31.365Z - GET /main-MNB2ONJW.js
+2026-01-17T12:38:32.839Z - GET /styles-VIMQ3S2Y.css
+2026-01-17T12:38:33.182Z - GET /assets/images/profile.png
+2026-01-17T12:39:04.895Z - GET /chunk-FM62LVFB.js
+2026-01-17T12:39:32.543Z - GET /chunk-M5RM6GSZ.js
+2026-01-17T12:39:32.699Z - GET /assets/images/qabas-al-huda-main.png
+2026-01-17T12:39:34.985Z - GET /chunk-67TXXO7O.js
+2026-01-17T12:39:39.324Z - GET /chunk-MM3PQCYC.js
+2026-01-17T12:39:54.987Z - GET /assets/images/profile.png
+2026-01-17T13:13:49.529Z - GET /api/profile
+2026-01-17T13:13:49.549Z - GET /api/projects
+2026-01-17T13:13:49.553Z - GET /api/skills
+2026-01-17T13:16:44.606Z - GET /api/profile
+2026-01-17T13:16:44.610Z - GET /api/projects
+2026-01-17T13:16:44.612Z - GET /api/skills
+2026-01-17T13:19:09.699Z - GET /api/projects
+2026-01-17T13:19:09.704Z - GET /api/profile
+2026-01-17T13:19:09.705Z - GET /api/skills
+2026-01-17T13:19:24.566Z - POST /api/auth/login
+Login attempt for username: admin
+Login success: admin
+2026-01-17T13:20:18.044Z - POST /api/auth/login
+Login attempt for username: admin
+Login success: admin
