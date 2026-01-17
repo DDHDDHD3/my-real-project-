@@ -384,17 +384,48 @@ app.delete('/api/messages/:id', authenticateToken, async (req, res) => {
     }
 });
 
+// Serve static files from the dist folder
+// We check multiple locations to support both Docker and local development
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
+app.use(express.static('/dist'));
+
 app.get('/health', (req, res) => {
     console.log('Health check requested');
     res.send({ status: 'UP', timestamp: new Date() });
 });
 
-// Catch-all 404
+// Root route - Serve frontend if available, otherwise show status
+app.get('/', (req, res) => {
+    const localIndex = path.join(distPath, 'index.html');
+    const dockerIndex = '/dist/index.html';
+
+    if (require('fs').existsSync(dockerIndex)) {
+        res.sendFile(dockerIndex);
+    } else if (require('fs').existsSync(localIndex)) {
+        res.sendFile(localIndex);
+    } else {
+        res.json({
+            message: 'Backend is running successfully!',
+            status: 'Online',
+            api_routes: '/api/auth, /api/projects, /api/profile, /api/messages'
+        });
+    }
+});
+
+// Catch-all route for SPA (redirect to index.html for unknown text/html requests)
+app.get('*', (req, res, next) => {
+    if (req.accepts('html')) {
+        const dockerIndex = '/dist/index.html';
+        const localIndex = path.join(distPath, 'index.html');
+        if (require('fs').existsSync(dockerIndex)) return res.sendFile(dockerIndex);
+        if (require('fs').existsSync(localIndex)) return res.sendFile(localIndex);
+    }
+    next();
+});
+
+// Catch-all 404 for API or missing files
 app.use((req, res) => {
     console.log(`404 - Not Found: ${req.method} ${req.url}`);
     res.status(404).json({ message: 'Route not found' });
 });
-
-// app.listen(PORT, '0.0.0.0', () => {
-//     console.log(`Server running on port ${PORT}`);
-// });
