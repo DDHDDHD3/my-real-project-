@@ -9,7 +9,7 @@ const pool = new Pool({
 async function setupLocal() {
     try {
         console.log('Connecting to Local Docker Postgres (localhost:5433)...');
-        const password = 'admin123';
+        const password = 'Portfolio_Admin_2026!';
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Ensure table exists (though server should handle it)
@@ -28,7 +28,7 @@ async function setupLocal() {
         } else {
             console.log('Local Admin password updated.');
         }
-        console.log('Success! Use "admin" / "admin123" for local login.');
+        console.log('Success! Use "admin" / "Portfolio_Admin_2026!" for local login.');
     } catch (err) {
         console.error('Error:', err.message);
         console.log('Tip: Make sure your Docker containers are running (docker-compose up -d)');

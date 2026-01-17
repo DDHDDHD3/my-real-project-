@@ -10,7 +10,7 @@ const pool = new Pool({
 async function resetPassword() {
     try {
         console.log('Connecting to Neon to reset password...');
-        const newPassword = 'admin123';
+        const newPassword = 'Portfolio_Admin_2026!';
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
         const result = await pool.query(
@@ -19,14 +19,14 @@ async function resetPassword() {
         );
 
         if (result.rowCount > 0) {
-            console.log('SUCCESS: Admin password reset to "admin123"');
+            console.log('SUCCESS: Admin password reset to "Portfolio_Admin_2026!"');
         } else {
             console.log('FAILURE: User "admin" not found. Attempting to insert...');
             await pool.query(
                 'INSERT INTO users (username, password) VALUES ($1, $2)',
                 ['admin', hashedPassword]
             );
-            console.log('SUCCESS: Admin user created with password "admin123"');
+            console.log('SUCCESS: Admin user created with password "Portfolio_Admin_2026!"');
         }
     } catch (err) {
         console.error('Error resetting password:', err);
