@@ -223,9 +223,6 @@ app.post('/api/auth/login', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-
-});
-
 // Profile
 app.get('/api/profile', async (req, res) => {
     try {
