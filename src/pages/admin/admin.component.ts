@@ -41,24 +41,7 @@ import { AuthService } from '../../services/auth.service';
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
           </div>
-          <div class="space-y-0.5">
-            <h2 class="text-xl font-black text-white tracking-tight">Admin CMS</h2>
-            <div class="flex items-center gap-1.5">
-              <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-              <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">{{ auth.userRole() || 'Editor' }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- User Profile Card -->
-        <div class="bg-gray-800/40 p-4 rounded-2xl border border-gray-700/30 flex items-center gap-4">
-          <div class="w-10 h-10 bg-gray-700 rounded-xl flex items-center justify-center text-blue-400 font-black">
-            {{ (auth.currentUser() || 'A')[0].toUpperCase() }}
-          </div>
-          <div class="flex-1 min-w-0">
-            <p class="text-white font-bold text-sm truncate">{{ auth.currentUser() }}</p>
-            <p class="text-[10px] font-black text-gray-500 uppercase tracking-widest">{{ auth.userRole() }} Mode</p>
-          </div>
+          <h2 class="text-2xl font-black text-white tracking-tight">Admin CMS</h2>
         </div>
 
         <nav class="space-y-3">

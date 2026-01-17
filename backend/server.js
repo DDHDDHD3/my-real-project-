@@ -59,16 +59,7 @@ function authenticateToken(req, res, next) {
     });
 }
 
-// Role Authorization Middleware
-function authorizeRole(roles) {
-    return (req, res, next) => {
-        if (!req.user || !roles.includes(req.user.role)) {
-            console.log(`Access denied for role: ${req.user?.role}. Required: ${roles}`);
-            return res.status(403).json({ message: 'Forbidden: You do not have permission for this action.' });
-        }
-        next();
-    };
-}
+
 
 // Initialize Database
 async function initializeDatabase() {
@@ -249,7 +240,7 @@ app.get('/api/profile', async (req, res) => {
     }
 });
 
-app.put('/api/profile', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
+app.put('/api/profile', authenticateToken, async (req, res) => {
     const { name, role, email, phone, address, github, mission } = req.body;
     try {
         await pool.query(`
@@ -274,7 +265,7 @@ app.get('/api/projects', async (req, res) => {
     }
 });
 
-app.post('/api/projects', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
+app.post('/api/projects', authenticateToken, async (req, res) => {
     const { title, description, image_url, link, link_text } = req.body;
     try {
         const result = await pool.query(
@@ -287,7 +278,7 @@ app.post('/api/projects', authenticateToken, authorizeRole(['admin', 'editor']),
     }
 });
 
-app.put('/api/projects/:id', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
+app.put('/api/projects/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
     const { title, description, image_url, link, link_text } = req.body;
     try {
@@ -301,7 +292,7 @@ app.put('/api/projects/:id', authenticateToken, authorizeRole(['admin', 'editor'
     }
 });
 
-app.delete('/api/projects/:id', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
+app.delete('/api/projects/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
     try {
         await pool.query('DELETE FROM projects WHERE id = $1', [id]);
@@ -312,7 +303,7 @@ app.delete('/api/projects/:id', authenticateToken, authorizeRole(['admin', 'edit
 });
 
 // Skills
-app.put('/api/skills', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
+app.put('/api/skills', authenticateToken, async (req, res) => {
     const categories = req.body;
     const client = await pool.connect();
     try {
@@ -389,7 +380,7 @@ app.get('/api/messages', authenticateToken, async (req, res) => {
     }
 });
 
-app.delete('/api/messages/:id', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
+app.delete('/api/messages/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
     try {
         await pool.query('DELETE FROM messages WHERE id = $1', [id]);
