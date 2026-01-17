@@ -10,12 +10,15 @@ const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.SECRET_KEY || 'YOUR_SECRET_KEY'; // In production, use environment variable
 
 // Middleware
-app.use(cors({
-    origin: '*', // Allow all origins (Vercel domains vary)
-    credentials: true
-}));
+app.use(cors()); // Allow all origins, no credentials needed for JWT
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Request Logger
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
 
 // Database Connection
 const pool = new Pool({
@@ -197,19 +200,30 @@ async function initializeDatabase() {
 // Auth
 app.post('/api/auth/login', async (req, res) => {
     const { username, password } = req.body;
+    console.log(`Login attempt for username: ${username}`);
     try {
         const result = await pool.query('SELECT * FROM users WHERE username ILIKE $1', [username]);
-        if (result.rows.length === 0) return res.status(401).json({ message: 'Invalid credentials' });
+        if (result.rows.length === 0) {
+            console.log(`Login failed: User "${username}" not found.`);
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
 
         const user = result.rows[0];
         const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) return res.status(401).json({ message: 'Invalid credentials' });
+        if (!validPassword) {
+            console.log(`Login failed: Wrong password for user "${username}".`);
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
 
+        console.log(`Login success: ${username}`);
         const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '10m' });
         res.json({ token, username: user.username });
     } catch (err) {
+        console.error('Login error:', err);
         res.status(500).json({ message: 'Server error' });
     }
+});
+
 });
 
 // Profile
@@ -374,7 +388,14 @@ app.delete('/api/messages/:id', authenticateToken, async (req, res) => {
 });
 
 app.get('/health', (req, res) => {
+    console.log('Health check requested');
     res.send({ status: 'UP', timestamp: new Date() });
+});
+
+// Catch-all 404
+app.use((req, res) => {
+    console.log(`404 - Not Found: ${req.method} ${req.url}`);
+    res.status(404).json({ message: 'Route not found' });
 });
 
 // app.listen(PORT, '0.0.0.0', () => {
