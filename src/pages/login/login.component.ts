@@ -89,11 +89,21 @@ export class LoginComponent {
   private router = inject(Router);
 
   onSubmit() {
-    if (!this.username || !this.password) return;
+    const trimmedUsername = this.username.trim();
+    const trimmedPassword = this.password.trim();
+
+    if (!trimmedUsername || !trimmedPassword) {
+      this.notificationService.error('Please enter both username and access key.');
+      return;
+    }
 
     this.authService.debugInfo.set('');
     this.loading = true;
-    this.authService.login({ username: this.username, password: this.password }).subscribe({
+
+    this.authService.login({
+      username: trimmedUsername,
+      password: trimmedPassword
+    }).subscribe({
       next: (success) => {
         if (success) {
           this.notificationService.success('Welcome back, Admin!');
@@ -104,6 +114,7 @@ export class LoginComponent {
         this.loading = false;
       },
       error: (err) => {
+        console.error('Login submit error:', err);
         this.notificationService.error('Authentication failed. Please check your connection.');
         this.loading = false;
       }
