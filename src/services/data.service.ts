@@ -1,6 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export interface Project {
     id?: number;
@@ -38,7 +39,7 @@ export interface Message {
 })
 export class DataService {
     private http = inject(HttpClient);
-    private apiUrl = 'http://localhost:3000/api';
+    private apiUrl = environment.apiUrl.replace('/auth', '');
 
     // General Info
     profile = signal({
