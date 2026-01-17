@@ -16,6 +16,7 @@ export class AuthService {
     isAuthenticated = signal<boolean>(!!localStorage.getItem('token'));
     currentUser = signal<string | null>(localStorage.getItem('username'));
     sessionTimeLeft = signal<number>(0); // In seconds
+    debugInfo = signal<string>('');
     private timerHandle: any;
 
     private apiUrl = environment.apiUrl;
@@ -39,6 +40,8 @@ export class AuthService {
             map(() => true),
             catchError(error => {
                 console.error('Login failed', error);
+                const msg = `Status: ${error.status} | URL: ${error.url} | Message: ${error.message}`;
+                this.debugInfo.set(msg);
                 return of(false);
             })
         );

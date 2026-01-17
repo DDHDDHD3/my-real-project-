@@ -1,0 +1,24 @@
+1. Hashing password "admin123"...
+   Hash generated: $2b$10$gmnE8lUKS2MAka/nabCy3OnCeKlHR22NuC.FugFQY3wvrSCNipwhe
+2. Verifying hash locally...
+   Local verification: SUCCESS
+3. Updating database...
+(node:28648) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Error: Error: Client network socket disconnected before secure TLS connection was established
+    at C:\Users\hp\Downloads\abdullahi-muse-isse---portfolio (1)\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async verifyAndReset (file:///C:/Users/hp/Downloads/abdullahi-muse-isse---portfolio%20(1)/verify_and_reset.js:23:9) {
+  code: 'ECONNRESET',
+  path: undefined,
+  host: undefined,
+  port: undefined,
+  localAddress: undefined
+}

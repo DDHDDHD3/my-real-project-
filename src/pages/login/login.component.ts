@@ -67,6 +67,13 @@ import { NotificationService } from '../../services/notification.service';
               }
             </button>
           </form>
+
+          @if (authService.debugInfo()) {
+            <div class="mt-8 p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-mono break-all">
+              <p class="font-black uppercase mb-2">Technical Debug Info:</p>
+              {{ authService.debugInfo() }}
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -77,13 +84,14 @@ export class LoginComponent {
   password = '';
   loading = false;
 
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
   private notificationService = inject(NotificationService);
   private router = inject(Router);
 
   onSubmit() {
     if (!this.username || !this.password) return;
 
+    this.authService.debugInfo.set('');
     this.loading = true;
     this.authService.login({ username: this.username, password: this.password }).subscribe({
       next: (success) => {
