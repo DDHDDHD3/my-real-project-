@@ -1,0 +1,30 @@
+
+> backend@1.0.0 start
+> node server.js
+
+Successfully connected to PostgreSQL database!
+Database initialized successfully.
+Server running on port 3000
+2026-01-17T13:25:52.252Z - GET /api/messages
+2026-01-17T13:25:52.270Z - GET /api/profile
+2026-01-17T13:25:52.283Z - GET /api/skills
+2026-01-17T13:25:52.285Z - GET /api/projects
+2026-01-17T13:26:05.425Z - GET /api/messages
+2026-01-17T13:26:23.538Z - POST /api/auth/login
+Login attempt for username: admin
+Login success: admin
+Generated token for admin
+2026-01-17T13:27:48.505Z - GET /api/projects
+2026-01-17T13:27:48.517Z - GET /api/skills
+2026-01-17T13:27:48.520Z - GET /api/profile
+2026-01-17T13:27:48.533Z - GET /api/messages
+2026-01-17T13:35:48.304Z - GET /
+2026-01-17T13:35:48.694Z - GET /chunk-ZX3GGCCM.js
+2026-01-17T13:35:48.702Z - GET /chunk-4CXR2B4R.js
+2026-01-17T13:35:48.709Z - GET /main-MNB2ONJW.js
+2026-01-17T13:35:50.213Z - GET /styles-VIMQ3S2Y.css
+2026-01-17T13:35:50.866Z - GET /assets/images/profile.png
+2026-01-17T13:35:57.881Z - GET /favicon.ico
+2026-01-17T13:36:06.785Z - GET /chunk-FM62LVFB.js
+2026-01-17T13:36:06.993Z - GET /favicon.ico
+2026-01-17T13:47:04.501Z - GET /favicon.ico

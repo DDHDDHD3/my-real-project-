@@ -59,6 +59,17 @@ function authenticateToken(req, res, next) {
     });
 }
 
+// Role Authorization Middleware
+function authorizeRole(roles) {
+    return (req, res, next) => {
+        if (!req.user || !roles.includes(req.user.role)) {
+            console.log(`Access denied for role: ${req.user?.role}. Required: ${roles}`);
+            return res.status(403).json({ message: 'Forbidden: You do not have permission for this action.' });
+        }
+        next();
+    };
+}
+
 // Initialize Database
 async function initializeDatabase() {
     try {
@@ -215,10 +226,14 @@ app.post('/api/auth/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        console.log(`Login success: ${username}`);
-        const token = jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '10m' });
+        console.log(`Login success: ${username} (Role: ${user.role || 'editor'})`);
+        const token = jwt.sign(
+            { id: user.id, username: user.username, role: user.role || 'editor' },
+            SECRET_KEY,
+            { expiresIn: '10m' }
+        );
         console.log(`Generated token for ${username}`);
-        res.status(200).json({ token, username: user.username });
+        res.status(200).json({ token, username: user.username, role: user.role || 'editor' });
     } catch (err) {
         console.error('Login error in server:', err);
         res.status(500).json({ message: 'Server error', details: err.message });
@@ -234,7 +249,7 @@ app.get('/api/profile', async (req, res) => {
     }
 });
 
-app.put('/api/profile', authenticateToken, async (req, res) => {
+app.put('/api/profile', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
     const { name, role, email, phone, address, github, mission } = req.body;
     try {
         await pool.query(`
@@ -259,7 +274,7 @@ app.get('/api/projects', async (req, res) => {
     }
 });
 
-app.post('/api/projects', authenticateToken, async (req, res) => {
+app.post('/api/projects', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
     const { title, description, image_url, link, link_text } = req.body;
     try {
         const result = await pool.query(
@@ -272,7 +287,7 @@ app.post('/api/projects', authenticateToken, async (req, res) => {
     }
 });
 
-app.put('/api/projects/:id', authenticateToken, async (req, res) => {
+app.put('/api/projects/:id', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
     const { id } = req.params;
     const { title, description, image_url, link, link_text } = req.body;
     try {
@@ -286,7 +301,7 @@ app.put('/api/projects/:id', authenticateToken, async (req, res) => {
     }
 });
 
-app.delete('/api/projects/:id', authenticateToken, async (req, res) => {
+app.delete('/api/projects/:id', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
     const { id } = req.params;
     try {
         await pool.query('DELETE FROM projects WHERE id = $1', [id]);
@@ -297,7 +312,7 @@ app.delete('/api/projects/:id', authenticateToken, async (req, res) => {
 });
 
 // Skills
-app.put('/api/skills', authenticateToken, async (req, res) => {
+app.put('/api/skills', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
     const categories = req.body;
     const client = await pool.connect();
     try {
@@ -374,7 +389,7 @@ app.get('/api/messages', authenticateToken, async (req, res) => {
     }
 });
 
-app.delete('/api/messages/:id', authenticateToken, async (req, res) => {
+app.delete('/api/messages/:id', authenticateToken, authorizeRole(['admin', 'editor']), async (req, res) => {
     const { id } = req.params;
     try {
         await pool.query('DELETE FROM messages WHERE id = $1', [id]);

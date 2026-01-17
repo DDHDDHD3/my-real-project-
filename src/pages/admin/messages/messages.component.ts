@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { DataService } from '../../../services/data.service';
+import { AuthService } from '../../../services/auth.service';
 import { NotificationService } from '../../../services/notification.service';
 
 @Component({
@@ -46,7 +47,7 @@ import { NotificationService } from '../../../services/notification.service';
                         title="Reply via Email">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                       </a>
-                      <button (click)="deleteMessage(msg.id)" 
+                      <button *ngIf="auth.canEdit()" (click)="deleteMessage(msg.id)" 
                         class="p-3 bg-red-50 text-red-500 hover:text-red-700 hover:bg-red-100 rounded-xl transition-all opacity-100 md:opacity-0 md:group-hover:opacity-100"
                         title="Delete Message">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
@@ -66,6 +67,7 @@ import { NotificationService } from '../../../services/notification.service';
   `
 })
 export class AdminMessagesComponent implements OnInit {
+  auth = inject(AuthService);
   dataService = inject(DataService);
   private notificationService = inject(NotificationService);
 

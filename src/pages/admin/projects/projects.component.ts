@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService, Project } from '../../../services/data.service';
+import { AuthService } from '../../../services/auth.service';
 import { NotificationService } from '../../../services/notification.service';
 
 @Component({
@@ -15,7 +16,7 @@ import { NotificationService } from '../../../services/notification.service';
           <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Manage Projects</h1>
           <p class="text-gray-500 font-medium">Add, edit, or remove projects from your showcase.</p>
         </div>
-        <button (click)="openModal()" 
+        <button *ngIf="auth.canEdit()" (click)="openModal()" 
           class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg transition-all scale-100 active:scale-95">
           Add New Project
         </button>
@@ -34,10 +35,11 @@ import { NotificationService } from '../../../services/notification.service';
             </div>
             <div class="flex gap-3 pt-2">
               <button (click)="openModal(project, $index)" 
-                class="flex-1 px-4 py-3 bg-gray-50 hover:bg-blue-50 text-gray-600 hover:text-blue-600 font-bold rounded-xl transition-all">
-                Edit Details
+                [disabled]="!auth.canEdit()"
+                class="flex-1 px-4 py-3 bg-gray-50 hover:bg-blue-50 text-gray-600 hover:text-blue-600 font-bold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                {{ auth.canEdit() ? 'Edit Details' : 'View Details' }}
               </button>
-              <button (click)="deleteProject($index)" 
+              <button *ngIf="auth.canEdit()" (click)="deleteProject($index)" 
                 class="px-5 py-3 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition-all"
                 title="Delete Project">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
@@ -110,9 +112,11 @@ import { NotificationService } from '../../../services/notification.service';
               </div>
 
               <div class="flex justify-end gap-5 pt-6 border-t border-gray-100">
-                <button type="button" (click)="closeModal()" class="px-10 py-5 font-bold text-gray-600 hover:bg-gray-100 rounded-2xl transition-all">Cancel</button>
-                <button type="submit" [disabled]="projectForm.invalid" class="px-12 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/25 transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50">
-                  {{ editingIndex === null ? 'Create Project' : 'Save Changes' }}
+                <button type="button" (click)="closeModal()" class="px-10 py-5 font-bold text-gray-600 hover:bg-gray-100 rounded-2xl transition-all">
+                  {{ auth.canEdit() ? 'Cancel' : 'Close' }}
+                </button>
+                <button *ngIf="auth.canEdit()" type="submit" [disabled]="projectForm.invalid" class="px-12 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/25 transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50">
+                  {{ editingId === null ? 'Create Project' : 'Save Changes' }}
                 </button>
               </div>
             </form>
@@ -123,6 +127,7 @@ import { NotificationService } from '../../../services/notification.service';
   `
 })
 export class AdminProjectsComponent {
+  auth = inject(AuthService);
   dataService = inject(DataService);
   private fb = inject(FormBuilder);
   private notificationService = inject(NotificationService);

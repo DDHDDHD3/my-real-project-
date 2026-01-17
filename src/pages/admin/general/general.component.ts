@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, effect } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService } from '../../../services/data.service';
+import { AuthService } from '../../../services/auth.service';
 import { NotificationService } from '../../../services/notification.service';
 
 @Component({
@@ -56,7 +57,7 @@ import { NotificationService } from '../../../services/notification.service';
           </div>
         </div>
 
-        <div class="flex justify-end pt-4">
+        <div class="flex justify-end pt-4" *ngIf="auth.canEdit()">
           <button type="submit" [disabled]="profileForm.invalid"
             class="px-12 py-5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/25 transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:scale-100">
             Save Changes
@@ -67,6 +68,7 @@ import { NotificationService } from '../../../services/notification.service';
   `
 })
 export class AdminGeneralComponent {
+  auth = inject(AuthService);
   private dataService = inject(DataService);
   private fb = inject(FormBuilder);
   private notificationService = inject(NotificationService);
@@ -92,6 +94,12 @@ export class AdminGeneralComponent {
         address: p.address,
         mission: m
       }, { emitEvent: false });
+
+      if (!this.auth.canEdit()) {
+        this.profileForm.disable();
+      } else {
+        this.profileForm.enable();
+      }
     });
   }
 

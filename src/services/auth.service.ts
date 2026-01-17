@@ -15,6 +15,7 @@ export class AuthService {
     // Signal to track auth state reactively
     isAuthenticated = signal<boolean>(!!localStorage.getItem('token'));
     currentUser = signal<string | null>(localStorage.getItem('username'));
+    userRole = signal<string | null>(localStorage.getItem('role'));
     sessionTimeLeft = signal<number>(0); // In seconds
     debugInfo = signal<string>('');
     private timerHandle: any;
@@ -28,13 +29,15 @@ export class AuthService {
     }
 
     login(credentials: { username: string; password: string }): Observable<boolean> {
-        return this.http.post<{ token: string; username: string }>(`${this.apiUrl}/login`, credentials).pipe(
+        return this.http.post<{ token: string; username: string; role: string }>(`${this.apiUrl}/login`, credentials).pipe(
             tap(response => {
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('username', response.username);
+                localStorage.setItem('role', response.role);
                 localStorage.setItem('sessionStart', Date.now().toString());
                 this.isAuthenticated.set(true);
                 this.currentUser.set(response.username);
+                this.userRole.set(response.role);
                 this.startSessionTimer();
             }),
             map(() => true),
@@ -78,15 +81,26 @@ export class AuthService {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
+        localStorage.removeItem('role');
         localStorage.removeItem('sessionStart');
         if (this.timerHandle) clearInterval(this.timerHandle);
         this.isAuthenticated.set(false);
         this.currentUser.set(null);
+        this.userRole.set(null);
         this.sessionTimeLeft.set(0);
         this.router.navigate(['/login']);
     }
 
     getToken(): string | null {
         return localStorage.getItem('token');
+    }
+
+    canEdit(): boolean {
+        const role = this.userRole();
+        return role === 'admin' || role === 'editor';
+    }
+
+    isAdmin(): boolean {
+        return this.userRole() === 'admin';
     }
 }
