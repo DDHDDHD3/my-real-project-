@@ -134,7 +134,7 @@ async function initializeDatabase() {
         // Seed Admin User
         const userCount = await pool.query('SELECT COUNT(*) FROM users');
         if (parseInt(userCount.rows[0].count) === 0) {
-            const hashedPassword = await bcrypt.hash('admin_secure_password', 10);
+            const hashedPassword = await bcrypt.hash('admin123', 10);
             await pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', ['admin', hashedPassword]);
             console.log('Admin user seeded.');
         }
