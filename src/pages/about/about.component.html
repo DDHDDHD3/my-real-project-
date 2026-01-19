@@ -222,24 +222,44 @@
     </div>
   </div>
 
-  <!-- Generate PDF Button -->
-  <div class="flex flex-col items-center gap-6 no-print animate-fade-in delay-500">
-    <p class="text-sm text-gray-500 dark:text-gray-400 font-medium flex items-center gap-2">
+  <!-- Download CV Section -->
+  <div class="flex flex-col items-center gap-8 no-print animate-fade-in delay-500 pb-12">
+    <div class="text-center space-y-2">
+      <h3 class="text-xl font-bold text-gray-900 dark:text-white">Need a Copy?</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">
+        Download my professional resume in your preferred format.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4">
+      <!-- PDF Button -->
+      <button onclick="window.print()"
+        class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-300 bg-gray-900 dark:bg-gray-800 rounded-2xl hover:scale-105 active:scale-95 shadow-xl hover:bg-black border border-gray-700">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+        </svg>
+        Generate PDF
+      </button>
+
+      <!-- Word Button -->
+      <a href="/assets/cv/resume.doc" download="Abdullahi_Isse_Resume.doc"
+        class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-300 bg-blue-600 rounded-2xl hover:scale-105 active:scale-95 shadow-xl shadow-blue-500/25 hover:bg-blue-700">
+        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+        </svg>
+        Download Word (.docx)
+      </a>
+    </div>
+
+    <p class="text-[11px] text-gray-400 dark:text-gray-500 flex items-center gap-2">
       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
         <path fill-rule="evenodd"
           d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
           clip-rule="evenodd"></path>
       </svg>
-      Select "Save as PDF" in the browser's print menu.
+      Tip: For PDF, select "Save as PDF" in the print destination.
     </p>
-    <button onclick="window.print()"
-      class="group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white transition-all duration-300 bg-gray-900 dark:bg-blue-600 rounded-3xl hover:scale-105 active:scale-95 shadow-2xl hover:bg-black dark:hover:bg-blue-700">
-      <svg class="w-6 h-6 mr-3 transition-transform group-hover:-translate-y-1" fill="none" stroke="currentColor"
-        viewBox="0 0 24 24">
-        <path
-          d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-      </svg>
-      Generate Professional PDF
-    </button>
   </div>
 </div>
