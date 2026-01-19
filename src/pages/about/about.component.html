@@ -1,6 +1,6 @@
 <div class="max-w-5xl mx-auto py-12 px-4 space-y-12 animate-slide-up print:py-0 print:px-0 print:m-0 print:space-y-0">
   <!-- Resume Container -->
-  <div
+  <div id="resume-container"
     class="glass overflow-hidden rounded-[3rem] shadow-2xl border border-gray-200/50 dark:border-gray-700/50 print:border-none print:shadow-none print:rounded-none">
     <!-- Premium Header -->
     <div
@@ -237,13 +237,13 @@
 
     <div class="flex flex-wrap justify-center gap-4">
       <!-- PDF Button -->
-      <button onclick="window.print()"
+      <button (click)="downloadPDF()"
         class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-300 bg-gray-900 dark:bg-gray-800 rounded-2xl hover:scale-105 active:scale-95 shadow-xl hover:bg-black border border-gray-700">
         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
         </svg>
-        Generate PDF
+        Download PDF (.pdf)
       </button>
 
       <!-- Word Button -->
@@ -263,7 +263,7 @@
           d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
           clip-rule="evenodd"></path>
       </svg>
-      Tip: For PDF, select "Save as PDF" in the print destination.
+      Tip: The PDF will download directly to your device as a one-page document.
     </p>
   </div>
 </div>
