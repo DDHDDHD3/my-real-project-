@@ -28,7 +28,9 @@
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true
   },
-  "include": [
-    "src/**/*"
+  "exclude": [
+    "scripts/**/*",
+    "node_modules",
+    "dist"
   ]
 }
