@@ -14,116 +14,185 @@ export class AboutComponent {
   dataService = inject(DataService);
 
   downloadPDF() {
-    const correctName = 'ABDULLAHI MUSE ISSE';
-    const correctRole = 'Information Technology Professional';
-    const email = 'abdallaise877@gmail.com';
-    const phone = '+252 61 4163362';
-    const address = 'Mogadishu, Somalia';
+    const { jsPDF } = (window as any).jspdf;
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
 
-    // Create temporary container
-    const container = document.createElement('div');
-    container.style.position = 'fixed';
-    container.style.left = '-9999px';
-    container.style.width = '210mm';
-    container.style.background = 'white';
+    const pageWidth = 210;
+    const margin = 15;
+    const contentWidth = pageWidth - (margin * 2);
+    let yPos = 20;
 
-    container.innerHTML = `
-      <div style="font-family: Arial, sans-serif; line-height: 1.4; color: #333; padding: 20px; background: white;">
-        <div style="text-align: center; border-bottom: 2px solid #2563eb; padding-bottom: 10px; margin-bottom: 15px;">
-          <h1 style="font-size: 24pt; font-weight: bold; color: #1e40af; margin: 0; text-transform: uppercase;">${correctName}</h1>
-          <p style="font-size: 13pt; color: #3b82f6; font-weight: bold; margin: 5px 0;">${correctRole}</p>
-          <p style="font-size: 9pt; color: #4b5563; margin: 0;">${address} | ${phone} | ${email}</p>
-        </div>
-
-        <div style="margin: 12px 0;">
-          <div style="font-size: 11pt; font-weight: bold; color: white; background-color: #1e40af; padding: 4px 8px; margin-bottom: 8px; text-transform: uppercase;">Professional Objective</div>
-          <p style="font-size: 9.5pt; text-align: justify; margin: 0; line-height: 1.3;">Highly motivated Information Technology Professional with a strong foundation in modern web technologies and a dedicated focus on creating high-quality software that provides real value to users. Specialized in digital systems and data administration with a passion for building user-centric applications.</p>
-        </div>
-
-        <div style="margin: 12px 0;">
-          <div style="font-size: 11pt; font-weight: bold; color: white; background-color: #1e40af; padding: 4px 8px; margin-bottom: 8px; text-transform: uppercase;">Work Experience</div>
-          
-          <div style="margin-bottom: 10px;">
-            <div style="font-weight: bold; font-size: 10.5pt; color: #111;">Sales Assistant</div>
-            <div style="color: #2563eb; font-weight: bold; font-size: 9pt; margin-bottom: 3px;">Qabas Alhoda | Jan 2025 – June 2025</div>
-            <ul style="margin: 3px 0; padding-left: 18px; font-size: 9pt; line-height: 1.2;">
-              <li>Maintained accurate financial records and payments for student enrollments.</li>
-              <li>Developed and implemented an online grading tracking system to streamline performance monitoring.</li>
-            </ul>
-          </div>
-
-          <div style="margin-bottom: 10px;">
-            <div style="font-weight: bold; font-size: 10.5pt; color: #111;">System Management</div>
-            <div style="color: #2563eb; font-weight: bold; font-size: 9pt; margin-bottom: 3px;">Freelance | Jan 2024 – Dec 2024</div>
-            <ul style="margin: 3px 0; padding-left: 18px; font-size: 9pt; line-height: 1.2;">
-              <li>Managed registration databases and high-volume data tracking for various clients.</li>
-              <li>Implemented UI/UX improvements for digital educational and marketing materials.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div style="margin: 12px 0;">
-          <div style="font-size: 11pt; font-weight: bold; color: white; background-color: #1e40af; padding: 4px 8px; margin-bottom: 8px; text-transform: uppercase;">Education</div>
-          <div style="margin-bottom: 8px;">
-            <div style="font-weight: bold; font-size: 10.5pt; color: #111;">City University of Mogadishu</div>
-            <div style="color: #2563eb; font-weight: bold; font-size: 9pt;">Bachelor of Information Technology | 2021 – 2025</div>
-          </div>
-          <div style="margin-bottom: 8px;">
-            <div style="font-weight: bold; font-size: 10.5pt; color: #111;">Tabaarak ICT Solution</div>
-            <div style="color: #2563eb; font-weight: bold; font-size: 9pt;">Certified MEAN Stack Web Development Professional | 2025</div>
-          </div>
-        </div>
-
-        <div style="margin: 12px 0;">
-          <div style="font-size: 11pt; font-weight: bold; color: white; background-color: #1e40af; padding: 4px 8px; margin-bottom: 8px; text-transform: uppercase;">Core Skills</div>
-          <p style="font-size: 9.5pt; margin: 0; line-height: 1.3;"><strong>Technical:</strong> IT Support, Full Stack Development (MEAN Stack), Digital Systems, Data Administration.<br><strong>Creative:</strong> UI/UX Design, Remittance System Design, Graphic Material Optimization.<br><strong>Soft Skills:</strong> Problem Solving, Communication, Team Collaboration, Analytical Thinking.</p>
-        </div>
-
-        <div style="margin: 12px 0;">
-          <div style="font-size: 11pt; font-weight: bold; color: white; background-color: #1e40af; padding: 4px 8px; margin-bottom: 8px; text-transform: uppercase;">Personal Information</div>
-          <table style="width: 100%; border: none; font-size: 9.5pt;">
-            <tr>
-              <td style="width: 33%;"><strong>Date of Birth:</strong> 11 Sept 1999</td>
-              <td style="width: 33%;"><strong>Marital Status:</strong> Single</td>
-              <td style="width: 33%;"><strong>Nationality:</strong> Somali</td>
-            </tr>
-          </table>
-        </div>
-
-        <div style="margin: 12px 0;">
-          <div style="font-size: 11pt; font-weight: bold; color: white; background-color: #1e40af; padding: 4px 8px; margin-bottom: 8px; text-transform: uppercase;">Professional Reference</div>
-          <div>
-            <div style="font-weight: bold; font-size: 10.5pt; color: #111;">Zakria Mahmud Elmi</div>
-            <div style="color: #2563eb; font-weight: bold; font-size: 9pt;">IT Manager | City University of Mogadishu</div>
-            <p style="margin: 2px 0; font-size: 9.5pt;">Email: Zakariamacalin123@gmail.com | Phone: +252 61 7654470</p>
-          </div>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(container);
-
-    const opt = {
-      margin: [0.3, 0.3, 0.3, 0.3],
-      filename: 'Abdullahi_Isse_Resume.pdf',
-      image: { type: 'jpeg', quality: 0.95 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-        windowWidth: 794,
-        windowHeight: 1123
-      },
-      jsPDF: {
-        unit: 'mm',
-        format: 'a4',
-        orientation: 'portrait'
+    // Helper to add text
+    const addText = (text: string, size: number, style: string, color: number[] = [0, 0, 0], align: string = 'left') => {
+      doc.setFontSize(size);
+      doc.setFont('helvetica', style);
+      doc.setTextColor(color[0], color[1], color[2]);
+      if (align === 'center') {
+        doc.text(text, pageWidth / 2, yPos, { align: 'center' });
+      } else {
+        doc.text(text, margin, yPos);
       }
     };
 
-    html2pdf().set(opt).from(container).save().then(() => {
-      document.body.removeChild(container);
-    });
+    // Helper for blue header bars
+    const addSectionHeader = (title: string) => {
+      doc.setFillColor(30, 64, 175);
+      doc.rect(margin, yPos - 4, contentWidth, 8, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      doc.text(title.toUpperCase(), margin + 3, yPos + 1);
+      yPos += 10;
+    };
+
+    // Header
+    addText('ABDULLAHI MUSE ISSE', 20, 'bold', [30, 64, 175], 'center');
+    yPos += 6;
+    addText('Information Technology Professional', 12, 'bold', [59, 130, 246], 'center');
+    yPos += 5;
+    doc.setFontSize(9);
+    doc.setTextColor(75, 85, 99);
+    doc.text('Mogadishu, Somalia  |  +252 61 4163362  |  abdallaise877@gmail.com', pageWidth / 2, yPos, { align: 'center' });
+
+    // Blue line
+    yPos += 3;
+    doc.setDrawColor(37, 99, 235);
+    doc.setLineWidth(0.5);
+    doc.line(margin, yPos, pageWidth - margin, yPos);
+    yPos += 8;
+
+    // Professional Objective
+    addSectionHeader('Professional Objective');
+    doc.setFontSize(9);
+    doc.setTextColor(51, 51, 51);
+    doc.setFont('helvetica', 'normal');
+    const objectiveText = 'Highly motivated Information Technology Professional with a strong foundation in modern web technologies and a dedicated focus on creating high-quality software that provides real value to users. Specialized in digital systems and data administration with a passion for building user-centric applications.';
+    const splitObjective = doc.splitTextToSize(objectiveText, contentWidth);
+    doc.text(splitObjective, margin, yPos);
+    yPos += splitObjective.length * 4 + 5;
+
+    // Work Experience
+    addSectionHeader('Work Experience');
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(17, 17, 17);
+    doc.text('Sales Assistant', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(37, 99, 235);
+    doc.text('Qabas Alhoda  |  Jan 2025 – June 2025', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setTextColor(51, 51, 51);
+    doc.setFont('helvetica', 'normal');
+    doc.text('• Maintained accurate financial records and payments for student enrollments.', margin + 2, yPos);
+    yPos += 4;
+    doc.text('• Developed and implemented an online grading tracking system.', margin + 2, yPos);
+    yPos += 7;
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(17, 17, 17);
+    doc.text('System Management', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(37, 99, 235);
+    doc.text('Freelance  |  Jan 2024 – Dec 2024', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setTextColor(51, 51, 51);
+    doc.setFont('helvetica', 'normal');
+    doc.text('• Managed registration databases and high-volume data tracking.', margin + 2, yPos);
+    yPos += 4;
+    doc.text('• Implemented UI/UX improvements for digital materials.', margin + 2, yPos);
+    yPos += 7;
+
+    // Education
+    addSectionHeader('Education');
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(17, 17, 17);
+    doc.text('City University of Mogadishu', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(37, 99, 235);
+    doc.text('Bachelor of Information Technology  |  2021 – 2025', margin, yPos);
+    yPos += 6;
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(17, 17, 17);
+    doc.text('Tabaarak ICT Solution', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(37, 99, 235);
+    doc.text('Certified MEAN Stack Web Development Professional  |  2025', margin, yPos);
+    yPos += 7;
+
+    // Core Skills
+    addSectionHeader('Core Skills');
+    doc.setFontSize(9);
+    doc.setTextColor(51, 51, 51);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Technical: ', margin, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.text('IT Support, Full Stack Development (MEAN Stack), Digital Systems, Data Administration', margin + 20, yPos);
+    yPos += 4;
+    doc.setFont('helvetica', 'bold');
+    doc.text('Creative: ', margin, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.text('UI/UX Design, Remittance System Design, Graphic Material Optimization', margin + 18, yPos);
+    yPos += 4;
+    doc.setFont('helvetica', 'bold');
+    doc.text('Soft Skills: ', margin, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Problem Solving, Communication, Team Collaboration, Analytical Thinking', margin + 21, yPos);
+    yPos += 7;
+
+    // Personal Information
+    addSectionHeader('Personal Information');
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Date of Birth: ', margin, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.text('11 Sept 1999', margin + 30, yPos);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Marital Status: ', margin + 70, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Single', margin + 100, yPos);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Nationality: ', margin + 130, yPos);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Somali', margin + 157, yPos);
+    yPos += 7;
+
+    // Professional Reference
+    addSectionHeader('Professional Reference');
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(17, 17, 17);
+    doc.text('Zakria Mahmud Elmi', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(37, 99, 235);
+    doc.text('IT Manager  |  City University of Mogadishu', margin, yPos);
+    yPos += 4;
+    doc.setFontSize(9);
+    doc.setTextColor(51, 51, 51);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Email: Zakariamacalin123@gmail.com  |  Phone: +252 61 7654470', margin, yPos);
+
+    // Save the PDF
+    doc.save('Abdullahi_Isse_Resume.pdf');
   }
 }
