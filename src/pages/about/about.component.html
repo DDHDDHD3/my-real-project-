@@ -64,7 +64,7 @@
         </p>
       </section>
 
-      <div class="grid md:grid-cols-5 gap-16 print:flex print:flex-col print:gap-3">
+      <div class="grid md:grid-cols-5 gap-16 print:grid print:grid-cols-5 print:gap-8">
         <!-- Main Content (Experience & Education) -->
         <div class="md:col-span-3 space-y-16 print:space-y-4">
           <section class="space-y-10 print:space-y-2">
@@ -162,8 +162,8 @@
               <h2 class="text-2xl font-bold text-gray-900 dark:text-white uppercase tracking-wider">Core
                 Skills</h2>
             </div>
-            <div class="print-only print-section-title mb-2">Core Skills</div>
-            <div class="flex flex-wrap gap-3 print:gap-1 print:display-block">
+            <div class="print-only print-section-title mb-1">Core Skills</div>
+            <div class="flex flex-wrap gap-3 print:gap-0 print:flex-col print:items-start">
               <span
                 class="px-4 py-2 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold text-sm border border-blue-500/20 print:text-[10pt] print:font-bold print:border-none print:px-0">IT
                 Support, &nbsp;</span>
@@ -186,20 +186,16 @@
               <h2 class="text-2xl font-bold text-gray-900 dark:text-white uppercase tracking-wider">
                 Personal Info</h2>
             </div>
-            <div class="print-only print-section-title mb-2">Personal Information</div>
-            <div
-              class="space-y-4 text-gray-700 dark:text-gray-300 font-medium print:text-[10pt] print:flex print:flex-wrap print:gap-8 print:space-y-0">
-              <div class="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-2 print:border-none">
-                <span>Date
-                  of
-                  Birth: &nbsp;</span><span class="font-bold">11 Sept 1999</span>
+            <div class="print-only print-section-title mb-1">Personal Info</div>
+            <div class="space-y-4 text-gray-700 dark:text-gray-300 font-medium print:text-[10pt] print:space-y-0.5">
+              <div class="flex justify-between print:flex-col">
+                <span>Date of Birth</span><span class="font-bold">11 Sept 1999</span>
               </div>
-              <div class="flex justify-between border-b border-100 dark:border-gray-700 pb-2 print:border-none">
-                <span>Marital
-                  Status: &nbsp;</span><span class="font-bold">Single</span>
+              <div class="flex justify-between print:flex-col">
+                <span>Marital Status</span><span class="font-bold">Single</span>
               </div>
-              <div class="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-2 print:border-none">
-                <span>Nationality: &nbsp;</span><span class="font-bold">Somali</span>
+              <div class="flex justify-between print:flex-col">
+                <span>Nationality</span><span class="font-bold">Somali</span>
               </div>
             </div>
           </section>
