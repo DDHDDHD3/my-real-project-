@@ -1,8 +1,22 @@
+# PDF Generation Feature Implementation
 
+This file contains the code used to implement the single-page A4 PDF resume download.
+
+## 1. Libraries (index.html)
+We included the `jspdf` library via CDN in the `<head>` of `index.html`.
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+```
+
+## 2. Component Logic (src/pages/about/about.component.ts)
+The core logic manually draws the PDF using `jspdf` to ensure perfect A4 formatting.
+
+```typescript
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
 
-declare var html2pdf: any;
+declare var html2pdf: any; // Included but not used for this specific method
 
 @Component({
   selector: 'app-about',
@@ -169,7 +183,7 @@ export class AboutComponent {
     doc.setFont('helvetica', 'bold');
     doc.text('Date of Birth: ', margin, yPos);
     doc.setFont('helvetica', 'normal');
-    doc.text('11 Sept 1999', margin + 22, yPos); // compact
+    doc.text('11 Sept 1999', margin + 22, yPos);
     doc.setFont('helvetica', 'bold');
     doc.text('Marital Status: ', margin + 50, yPos);
     doc.setFont('helvetica', 'normal');
@@ -201,3 +215,19 @@ export class AboutComponent {
     doc.save('Abdullahi_Isse_Resume.pdf');
   }
 }
+```
+
+## 3. UI Template (src/pages/about/about.component.html)
+The button that triggers the download.
+
+```html
+<button (click)="downloadPDF()"
+  class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-300 bg-gray-900 dark:bg-gray-800 rounded-2xl hover:scale-105 active:scale-95 shadow-xl hover:bg-black border border-gray-700">
+  <!-- SVG Icon -->
+  <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+  </svg>
+  Download PDF (.pdf)
+</button>
+```

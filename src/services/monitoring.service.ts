@@ -5,7 +5,7 @@ import { ApplicationInsights } from '@microsoft/applicationinsights-web';
     providedIn: 'root'
 })
 export class MonitoringService {
-    private appInsights: ApplicationInsights;
+    private appInsights: InstanceType<typeof ApplicationInsights>;
 
     constructor() {
         this.appInsights = new ApplicationInsights({
