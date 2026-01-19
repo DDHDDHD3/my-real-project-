@@ -28,6 +28,12 @@
   "angularCompilerOptions": {
     "disableTypeScriptVersionCheck": true
   },
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "scripts/**/*",
     "node_modules",
