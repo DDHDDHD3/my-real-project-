@@ -4,33 +4,35 @@
 <style>
   @page {
     size: 8.5in 11in;
-    margin: 1in;
+    margin: 0.75in;
   }
   body { 
-    font-family: 'Calibri', 'Arial', sans-serif; 
-    line-height: 1.5; 
+    font-family: 'Arial', sans-serif; 
+    line-height: 1.4; 
     color: #333;
   }
   .header { 
     text-align: center; 
     border-bottom: 2px solid #2563eb; 
-    padding-bottom: 10px; 
+    padding-bottom: 15px; 
     margin-bottom: 20px;
   }
   .name { 
-    font-size: 24pt; 
+    font-size: 26pt; 
     font-weight: bold; 
     color: #1e40af; 
     margin: 0;
+    text-transform: uppercase;
   }
   .role { 
     font-size: 14pt; 
-    color: #4b5563; 
+    color: #3b82f6; 
+    font-weight: bold;
     margin: 5px 0;
   }
   .contact { 
     font-size: 10pt; 
-    color: #6b7280; 
+    color: #4b5563; 
   }
   .section { 
     margin-top: 20px; 
@@ -38,44 +40,49 @@
   .section-title { 
     font-size: 13pt; 
     font-weight: bold; 
-    color: #1e40af; 
-    border-bottom: 1px solid #e5e7eb; 
-    padding-bottom: 3px; 
-    margin-bottom: 8px; 
+    color: #ffffff; 
+    background-color: #1e40af;
+    padding: 5px 10px;
+    margin-bottom: 10px; 
     text-transform: uppercase;
   }
   .item { 
-    margin-bottom: 12px; 
-  }
-  .item-header {
-    display: table;
-    width: 100%;
+    margin-bottom: 15px; 
+    page-break-inside: avoid;
   }
   .item-title { 
     font-weight: bold; 
     font-size: 12pt; 
-  }
-  .item-date {
-    text-align: right;
-    font-style: italic;
-    font-size: 10pt;
-    color: #666;
+    color: #111;
   }
   .item-subtitle { 
     color: #2563eb; 
     font-weight: bold; 
     font-size: 10pt; 
-    margin-top: 2px;
+    margin-bottom: 5px;
   }
   ul { 
     margin-top: 5px; 
     margin-bottom: 5px;
+    padding-left: 20px;
   }
   li { 
-    margin-bottom: 2px; 
+    margin-bottom: 3px; 
+    font-size: 10.5pt;
   }
-  .skills-list {
+  .skills-table {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .skill-badge {
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 9pt;
     font-weight: bold;
+    display: inline-block;
+    margin: 2px;
   }
 </style>
 </head>
@@ -90,7 +97,7 @@
 
   <div class="section">
     <div class="section-title">Professional Objective</div>
-    <p>Highly motivated Information Technology Professional with a strong foundation in modern web technologies and a dedicated focus on creating high-quality software that provides real value to users.</p>
+    <p style="font-size: 10.5pt; text-align: justify;">Highly motivated Information Technology Professional with a strong foundation in modern web technologies and a dedicated focus on creating high-quality software that provides real value to users. Specialized in digital systems and data administration with a passion for building user-centric applications.</p>
   </div>
 
   <div class="section">
@@ -100,17 +107,17 @@
       <div class="item-title">Sales Assistant</div>
       <div class="item-subtitle">Qabas Alhoda &nbsp;|&nbsp; Jan 2025 &ndash; June 2025</div>
       <ul>
-        <li>Maintained accurate financial records and payments.</li>
-        <li>Developed an online grading tracking system.</li>
+        <li>Maintained accurate financial records and payments for student enrollments.</li>
+        <li>Developed and implemented an online grading tracking system to streamline performance monitoring.</li>
       </ul>
     </div>
 
     <div class="item">
       <div class="item-title">System Management</div>
-      <div class="item-subtitle">Freelance &nbsp;|&nbsp; 2024 &ndash; 2025</div>
+      <div class="item-subtitle">Freelance &nbsp;|&nbsp; Jan 2024 &ndash; Dec 2024</div>
       <ul>
-        <li>Managed registration databases and data tracking.</li>
-        <li>Implemented UI/UX improvements for digital materials.</li>
+        <li>Managed registration databases and high-volume data tracking for various clients.</li>
+        <li>Implemented UI/UX improvements for digital educational and marketing materials.</li>
       </ul>
     </div>
   </div>
@@ -119,22 +126,26 @@
     <div class="section-title">Education</div>
     <div class="item">
       <div class="item-title">City University of Mogadishu</div>
-      <div class="item-subtitle">IT Graduate &nbsp;|&nbsp; 2024 &ndash; 2025</div>
+      <div class="item-subtitle">Bachelor of Information Technology &nbsp;|&nbsp; 2021 &ndash; 2025</div>
     </div>
     <div class="item">
       <div class="item-title">Tabaarak ICT Solution</div>
-      <div class="item-subtitle">MEAN Stack Web Development &nbsp;|&nbsp; 2025</div>
+      <div class="item-subtitle">Certified MEAN Stack Web Development Professional &nbsp;|&nbsp; 2025</div>
     </div>
   </div>
 
   <div class="section">
     <div class="section-title">Core Skills</div>
-    <p class="skills-list">IT Support, Full Stack Dev, Remittance Systems, UI/UX Design</p>
+    <p style="font-size: 11pt;">
+      <strong>Technical:</strong> IT Support, Full Stack Development (MEAN Stack), Digital Systems, Data Administration. <br>
+      <strong>Creative:</strong> UI/UX Design, Remittance System Design, Graphic Material Optimization. <br>
+      <strong>Soft Skills:</strong> Problem Solving, Communication, Team Collaboration, Analytical Thinking.
+    </p>
   </div>
 
   <div class="section">
     <div class="section-title">Personal Information</div>
-    <table style="width: 100%; border: none;">
+    <table style="width: 100%; border: none; font-size: 10.5pt;">
       <tr>
         <td style="width: 33%;"><strong>Date of Birth:</strong> 11 Sept 1999</td>
         <td style="width: 33%;"><strong>Marital Status:</strong> Single</td>
@@ -144,11 +155,11 @@
   </div>
 
   <div class="section">
-    <div class="section-title">Reference</div>
+    <div class="section-title">Professional Reference</div>
     <div class="item">
       <div class="item-title">Zakria Mahmud Elmi</div>
-      <div class="item-subtitle">IT Manager &nbsp;|&nbsp; City University</div>
-      <p style="margin-top: 2px;">Email: Zakariamacalin123@gmail.com &nbsp;|&nbsp; Phone: +252 61 7654470</p>
+      <div class="item-subtitle">IT Manager &nbsp;|&nbsp; City University of Mogadishu</div>
+      <p style="margin-top: 2px; font-size: 10.5pt;">Email: Zakariamacalin123@gmail.com &nbsp;|&nbsp; Phone: +252 61 7654470</p>
     </div>
   </div>
 </body>
