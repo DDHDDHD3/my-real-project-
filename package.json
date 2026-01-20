@@ -21,9 +21,12 @@
     "@google/genai": "latest",
     "@microsoft/applicationinsights-web": "^3.3.10",
     "bcryptjs": "^3.0.3",
+    "html2pdf.js": "^0.14.0",
+    "jspdf": "^4.0.0",
     "pg": "^8.17.1",
     "rxjs": "^7.8.2",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "zone.js": "^0.16.0"
   },
   "devDependencies": {
     "@angular/cli": "^19.0.0",

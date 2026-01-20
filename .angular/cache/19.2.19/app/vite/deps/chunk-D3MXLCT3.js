@@ -2,10 +2,13 @@ import {
   BehaviorSubject,
   Subject,
   Subscription,
-  __spreadProps,
-  __spreadValues,
   map
-} from "./chunk-3II3OCSV.js";
+} from "./chunk-PADBOZH3.js";
+import {
+  __async,
+  __spreadProps,
+  __spreadValues
+} from "./chunk-TXDUYLVM.js";
 
 // node_modules/@angular/core/fesm2022/untracked-BKcld_ew.mjs
 function defaultEquals(a, b) {
@@ -5217,13 +5220,15 @@ var PendingTasks = class _PendingTasks {
    *
    * @param fn The asynchronous function to execute
    */
-  async run(fn) {
-    const removeTask = this.add();
-    try {
-      return await fn();
-    } finally {
-      removeTask();
-    }
+  run(fn) {
+    return __async(this, null, function* () {
+      const removeTask = this.add();
+      try {
+        return yield fn();
+      } finally {
+        removeTask();
+      }
+    });
   }
   /** @nocollapse */
   static ɵprov = (
@@ -16801,61 +16806,67 @@ function triggerDeferBlock(triggerType, lView, tNode) {
       }
   }
 }
-async function triggerHydrationFromBlockName(injector, blockName, replayQueuedEventsFn) {
-  const dehydratedBlockRegistry = injector.get(DEHYDRATED_BLOCK_REGISTRY);
-  const blocksBeingHydrated = dehydratedBlockRegistry.hydrating;
-  if (blocksBeingHydrated.has(blockName)) {
-    return;
-  }
-  const {
-    parentBlockPromise,
-    hydrationQueue
-  } = getParentBlockHydrationQueue(blockName, injector);
-  if (hydrationQueue.length === 0) return;
-  if (parentBlockPromise !== null) {
-    hydrationQueue.shift();
-  }
-  populateHydratingStateForQueue(dehydratedBlockRegistry, hydrationQueue);
-  if (parentBlockPromise !== null) {
-    await parentBlockPromise;
-  }
-  const topmostParentBlock = hydrationQueue[0];
-  if (dehydratedBlockRegistry.has(topmostParentBlock)) {
-    await triggerHydrationForBlockQueue(injector, hydrationQueue, replayQueuedEventsFn);
-  } else {
-    dehydratedBlockRegistry.awaitParentBlock(topmostParentBlock, async () => await triggerHydrationForBlockQueue(injector, hydrationQueue, replayQueuedEventsFn));
-  }
+function triggerHydrationFromBlockName(injector, blockName, replayQueuedEventsFn) {
+  return __async(this, null, function* () {
+    const dehydratedBlockRegistry = injector.get(DEHYDRATED_BLOCK_REGISTRY);
+    const blocksBeingHydrated = dehydratedBlockRegistry.hydrating;
+    if (blocksBeingHydrated.has(blockName)) {
+      return;
+    }
+    const {
+      parentBlockPromise,
+      hydrationQueue
+    } = getParentBlockHydrationQueue(blockName, injector);
+    if (hydrationQueue.length === 0) return;
+    if (parentBlockPromise !== null) {
+      hydrationQueue.shift();
+    }
+    populateHydratingStateForQueue(dehydratedBlockRegistry, hydrationQueue);
+    if (parentBlockPromise !== null) {
+      yield parentBlockPromise;
+    }
+    const topmostParentBlock = hydrationQueue[0];
+    if (dehydratedBlockRegistry.has(topmostParentBlock)) {
+      yield triggerHydrationForBlockQueue(injector, hydrationQueue, replayQueuedEventsFn);
+    } else {
+      dehydratedBlockRegistry.awaitParentBlock(topmostParentBlock, () => __async(null, null, function* () {
+        return yield triggerHydrationForBlockQueue(injector, hydrationQueue, replayQueuedEventsFn);
+      }));
+    }
+  });
 }
-async function triggerHydrationForBlockQueue(injector, hydrationQueue, replayQueuedEventsFn) {
-  const dehydratedBlockRegistry = injector.get(DEHYDRATED_BLOCK_REGISTRY);
-  const blocksBeingHydrated = dehydratedBlockRegistry.hydrating;
-  const pendingTasks = injector.get(PendingTasksInternal);
-  const taskId = pendingTasks.add();
-  for (let blockQueueIdx = 0; blockQueueIdx < hydrationQueue.length; blockQueueIdx++) {
-    const dehydratedBlockId = hydrationQueue[blockQueueIdx];
-    const dehydratedDeferBlock = dehydratedBlockRegistry.get(dehydratedBlockId);
-    if (dehydratedDeferBlock != null) {
-      await triggerResourceLoadingForHydration(dehydratedDeferBlock);
-      await nextRender(injector);
-      if (deferBlockHasErrored(dehydratedDeferBlock)) {
-        removeDehydratedViewList(dehydratedDeferBlock);
+function triggerHydrationForBlockQueue(injector, hydrationQueue, replayQueuedEventsFn) {
+  return __async(this, null, function* () {
+    const dehydratedBlockRegistry = injector.get(DEHYDRATED_BLOCK_REGISTRY);
+    const blocksBeingHydrated = dehydratedBlockRegistry.hydrating;
+    const pendingTasks = injector.get(PendingTasksInternal);
+    const taskId = pendingTasks.add();
+    for (let blockQueueIdx = 0; blockQueueIdx < hydrationQueue.length; blockQueueIdx++) {
+      const dehydratedBlockId = hydrationQueue[blockQueueIdx];
+      const dehydratedDeferBlock = dehydratedBlockRegistry.get(dehydratedBlockId);
+      if (dehydratedDeferBlock != null) {
+        yield triggerResourceLoadingForHydration(dehydratedDeferBlock);
+        yield nextRender(injector);
+        if (deferBlockHasErrored(dehydratedDeferBlock)) {
+          removeDehydratedViewList(dehydratedDeferBlock);
+          cleanupRemainingHydrationQueue(hydrationQueue.slice(blockQueueIdx), dehydratedBlockRegistry);
+          break;
+        }
+        blocksBeingHydrated.get(dehydratedBlockId).resolve();
+      } else {
+        cleanupParentContainer(blockQueueIdx, hydrationQueue, dehydratedBlockRegistry);
         cleanupRemainingHydrationQueue(hydrationQueue.slice(blockQueueIdx), dehydratedBlockRegistry);
         break;
       }
-      blocksBeingHydrated.get(dehydratedBlockId).resolve();
-    } else {
-      cleanupParentContainer(blockQueueIdx, hydrationQueue, dehydratedBlockRegistry);
-      cleanupRemainingHydrationQueue(hydrationQueue.slice(blockQueueIdx), dehydratedBlockRegistry);
-      break;
     }
-  }
-  const lastBlockName = hydrationQueue[hydrationQueue.length - 1];
-  await blocksBeingHydrated.get(lastBlockName)?.promise;
-  pendingTasks.remove(taskId);
-  if (replayQueuedEventsFn) {
-    replayQueuedEventsFn(hydrationQueue);
-  }
-  cleanupHydratedDeferBlocks(dehydratedBlockRegistry.get(lastBlockName), hydrationQueue, dehydratedBlockRegistry, injector.get(ApplicationRef));
+    const lastBlockName = hydrationQueue[hydrationQueue.length - 1];
+    yield blocksBeingHydrated.get(lastBlockName)?.promise;
+    pendingTasks.remove(taskId);
+    if (replayQueuedEventsFn) {
+      replayQueuedEventsFn(hydrationQueue);
+    }
+    cleanupHydratedDeferBlocks(dehydratedBlockRegistry.get(lastBlockName), hydrationQueue, dehydratedBlockRegistry, injector.get(ApplicationRef));
+  });
 }
 function deferBlockHasErrored(deferBlock) {
   return getLDeferBlockDetails(deferBlock.lView, deferBlock.tNode)[DEFER_BLOCK_STATE] === DeferBlockState.Error;
@@ -16884,15 +16895,17 @@ function nextRender(injector) {
     injector
   }));
 }
-async function triggerResourceLoadingForHydration(dehydratedBlock) {
-  const {
-    tNode,
-    lView
-  } = dehydratedBlock;
-  const lDetails = getLDeferBlockDetails(lView, tNode);
-  return new Promise((resolve) => {
-    onDeferBlockCompletion(lDetails, resolve);
-    triggerDeferBlock(2, lView, tNode);
+function triggerResourceLoadingForHydration(dehydratedBlock) {
+  return __async(this, null, function* () {
+    const {
+      tNode,
+      lView
+    } = dehydratedBlock;
+    const lDetails = getLDeferBlockDetails(lView, tNode);
+    return new Promise((resolve) => {
+      onDeferBlockCompletion(lDetails, resolve);
+      triggerDeferBlock(2, lView, tNode);
+    });
   });
 }
 function onDeferBlockCompletion(lDetails, callback) {
@@ -26088,57 +26101,59 @@ var ResourceImpl = class extends BaseWritableResource {
       stream: void 0
     });
   }
-  async loadEffect() {
-    const extRequest = this.extRequest();
-    const {
-      status: currentStatus,
-      previousStatus
-    } = untracked2(this.state);
-    if (extRequest.request === void 0) {
-      return;
-    } else if (currentStatus !== ResourceStatus.Loading) {
-      return;
-    }
-    this.abortInProgressLoad();
-    let resolvePendingTask = this.resolvePendingTask = this.pendingTasks.add();
-    const {
-      signal: abortSignal
-    } = this.pendingController = new AbortController();
-    try {
-      const stream = await untracked2(() => {
-        return this.loaderFn({
-          request: extRequest.request,
-          abortSignal,
-          previous: {
-            status: previousStatus
-          }
+  loadEffect() {
+    return __async(this, null, function* () {
+      const extRequest = this.extRequest();
+      const {
+        status: currentStatus,
+        previousStatus
+      } = untracked2(this.state);
+      if (extRequest.request === void 0) {
+        return;
+      } else if (currentStatus !== ResourceStatus.Loading) {
+        return;
+      }
+      this.abortInProgressLoad();
+      let resolvePendingTask = this.resolvePendingTask = this.pendingTasks.add();
+      const {
+        signal: abortSignal
+      } = this.pendingController = new AbortController();
+      try {
+        const stream = yield untracked2(() => {
+          return this.loaderFn({
+            request: extRequest.request,
+            abortSignal,
+            previous: {
+              status: previousStatus
+            }
+          });
         });
-      });
-      if (abortSignal.aborted || untracked2(this.extRequest) !== extRequest) {
-        return;
+        if (abortSignal.aborted || untracked2(this.extRequest) !== extRequest) {
+          return;
+        }
+        this.state.set({
+          extRequest,
+          status: ResourceStatus.Resolved,
+          previousStatus: ResourceStatus.Resolved,
+          stream
+        });
+      } catch (err) {
+        if (abortSignal.aborted || untracked2(this.extRequest) !== extRequest) {
+          return;
+        }
+        this.state.set({
+          extRequest,
+          status: ResourceStatus.Resolved,
+          previousStatus: ResourceStatus.Error,
+          stream: signal({
+            error: err
+          })
+        });
+      } finally {
+        resolvePendingTask?.();
+        resolvePendingTask = void 0;
       }
-      this.state.set({
-        extRequest,
-        status: ResourceStatus.Resolved,
-        previousStatus: ResourceStatus.Resolved,
-        stream
-      });
-    } catch (err) {
-      if (abortSignal.aborted || untracked2(this.extRequest) !== extRequest) {
-        return;
-      }
-      this.state.set({
-        extRequest,
-        status: ResourceStatus.Resolved,
-        previousStatus: ResourceStatus.Error,
-        stream: signal({
-          error: err
-        })
-      });
-    } finally {
-      resolvePendingTask?.();
-      resolvePendingTask = void 0;
-    }
+    });
   }
   abortInProgressLoad() {
     untracked2(() => this.pendingController?.abort());
@@ -26154,17 +26169,17 @@ function getLoader(options) {
   if (isStreamingResourceOptions(options)) {
     return options.stream;
   }
-  return async (params) => {
+  return (params) => __async(null, null, function* () {
     try {
       return signal({
-        value: await options.loader(params)
+        value: yield options.loader(params)
       });
     } catch (err) {
       return signal({
         error: err
       });
     }
-  };
+  });
 }
 function isStreamingResourceOptions(options) {
   return !!options.stream;
@@ -27007,4 +27022,4 @@ export {
    * found in the LICENSE file at https://angular.dev/license
    *)
 */
-//# sourceMappingURL=chunk-ZE7K2MRU.js.map
+//# sourceMappingURL=chunk-D3MXLCT3.js.map

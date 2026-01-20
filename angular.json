@@ -29,6 +29,9 @@
             "styles": [
               "src/styles.css"
             ],
+            "polyfills": [
+              "zone.js"
+            ],
             "optimization": {
               "fonts": {
                 "inline": false
